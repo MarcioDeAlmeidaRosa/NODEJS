@@ -1,8 +1,5 @@
 const app = require('./config/express');
-
-app.get('/produtos', (req, res) => {
-    res.render('produtos/lista');
-});
+const rotas = require('./app/routes/produtos')(app);
 
 
 const port = process.env.PORT || 3000;
