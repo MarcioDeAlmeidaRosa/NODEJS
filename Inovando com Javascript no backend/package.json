@@ -1,0 +1,13 @@
+{
+    "name": "casadocodigo",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test scpecification\" && exit 1"
+    },
+    "author": "Marcio de Almeida Rosa",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.15.5"
+    }
+}
