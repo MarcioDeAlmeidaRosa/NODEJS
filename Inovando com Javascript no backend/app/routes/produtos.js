@@ -7,8 +7,8 @@
 module.exports = function(app) {
     app.get('/produtos', (req, res) => {
         const cnn = app.infra.connectionFactory();
-        const produtoBanco = app.infra.produtoBanco;
-        produtoBanco.lista(cnn, (err, result) => {
+        const produtoBanco = app.infra.produtoBanco(cnn);
+        produtoBanco.lista((err, result) => {
             if (err) {
                 console.log(err);
             }
