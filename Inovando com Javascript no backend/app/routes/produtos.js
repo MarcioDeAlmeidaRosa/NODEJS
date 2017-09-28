@@ -1,8 +1,12 @@
-const connectionFactory = require('../infra/connectionFactory');
+//após a instalação do express-load e configurado o carregamento automático 
+//de algumas estruturas, não é mais necessário usar o require
+//pois a estrutura carregada fica carredado para dentro da aplicação 
+//respeitando a estrutura de pasta
+// const connectionFactory = require('../infra/connectionFactory');
 
 module.exports = function(app) {
     app.get('/produtos', (req, res) => {
-        const cnn = connectionFactory();
+        const cnn = app.infra.connectionFactory();
         cnn.query('select * from livros', (err, result) => {
             if (err) {
                 console.log(err);
