@@ -11,15 +11,9 @@ module.exports = function(app) {
         cnn.query('select * from livros', (err, result) => {
             if (err) {
                 console.log(err);
-                res.json(err);
-            } else {
-                console.log(result);
-                res.json(result);
             }
+            res.render('produtos/lista', { lista: result });
         });
-
         cnn.end();
-
-        //res.render('produtos/lista');
     });
 }
