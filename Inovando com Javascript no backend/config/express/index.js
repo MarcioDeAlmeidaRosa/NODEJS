@@ -1,5 +1,6 @@
 const express = require('express');
 const load = require('express-load');
+const bodyParser = require('body-parser');
 
 module.exports = () => {
     const app = express();
@@ -15,6 +16,8 @@ module.exports = () => {
         //dentro de config/empress e sim o arquivo app.js
         //pois é nele que carregamos este módulo
     app.set('views', './app/views');
+
+    app.use(bodyParser.urlencoded({ extended: true }))
 
     load('routes', { cwd: 'app' }) //defini a pasta de será carregada | para o load não ficar procurando em todos diretórios, através do cwd definimos onde esta a pasta que deve ser carregada
         .then('infra') //define após o carregamento principal, qual outra estrutura deverá ser carregada
