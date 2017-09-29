@@ -26,9 +26,7 @@ module.exports = function(app) {
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         const livro = req.body;
         produtoBanco.salvar(livro, (err, result) => {
-            console.log(result);
-            res.render('produtos/lista', { lista: result });
-
+            res.redirect('/produtos');
         });
         cnn.end();
     });

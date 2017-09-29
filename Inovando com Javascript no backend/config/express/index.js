@@ -16,13 +16,13 @@ module.exports = () => {
         //dentro de config/empress e sim o arquivo app.js
         //pois é nele que carregamos este módulo
     app.set('views', './app/views');
+    //configuração necessária para conseguirmos recuperar o conteúdo vindo no body da requisição
+    app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.use(bodyParser.urlencoded({ extended: true }))
-
+    //carregando os arquivos de configuração para o express
     load('routes', { cwd: 'app' }) //defini a pasta de será carregada | para o load não ficar procurando em todos diretórios, através do cwd definimos onde esta a pasta que deve ser carregada
         .then('infra') //define após o carregamento principal, qual outra estrutura deverá ser carregada
         .into(app); //determina onde deverá ser carregado o conteúdo carregado pelo load
-
 
     return app;
 }
