@@ -21,7 +21,7 @@ module.exports = function(app) {
         res.render('produtos/form');
     });
 
-    app.post('/produtos/salva', (req, res) => {
+    app.post('/produtos', (req, res) => {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         const livro = req.body;
