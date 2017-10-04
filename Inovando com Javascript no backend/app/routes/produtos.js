@@ -21,12 +21,29 @@ module.exports = function(app) {
         res.render('produtos/form');
     });
 
+    app.get('/produtos/novo', (req, res) => {
+        res.redirect('/produtos/form');
+    });
+
     app.post('/produtos', (req, res) => {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         const livro = req.body;
         produtoBanco.salvar(livro, (err, result) => {
             res.redirect('/produtos');
+        });
+        cnn.end();
+    });
+
+    app.delete('/produtos/:id', (req, res) => {
+        const cnn = app.infra.connectionFactory();
+        const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
+        const id = req.params['id'];
+        produtoBanco.delete(id, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            res.json({ err: err });
         });
         cnn.end();
     });

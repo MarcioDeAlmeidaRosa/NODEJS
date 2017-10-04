@@ -10,6 +10,10 @@ ProdutosBancoDAO.prototype.salvar = function(livro, cb) {
     this._cnn.query('insert into livros set ?', livro, cb);
 }
 
+ProdutosBancoDAO.prototype.delete = function(id, cb) {
+    this._cnn.query('DELETE FROM livros WHERE id = ?', id, cb);
+}
+
 module.exports = function() {
     return ProdutosBancoDAO;
 }
