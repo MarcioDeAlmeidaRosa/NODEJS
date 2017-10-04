@@ -5,7 +5,8 @@ const conf = {
     path: '/produtos',
     headers: {
         // 'Accept': 'text/html'
-        'Accept': 'application/json'
+        // 'Accept': 'application/json'
+        'Accept': 'application/xml'
     }
 };
 http.get(conf, (res)=>{

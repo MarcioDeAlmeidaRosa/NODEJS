@@ -3,6 +3,7 @@
 //pois a estrutura carregada fica carredado para dentro da aplicação 
 //respeitando a estrutura de pasta
 // const connectionFactory = require('../infra/connectionFactory');
+const xml = require('xml');
 
 module.exports = function(app) {
     app.get('/produtos', (req, res) => {
@@ -18,6 +19,10 @@ module.exports = function(app) {
                 },
                 json: ()=> {
                     res.json(result);
+                },
+                xml: ()=>{
+                    res.set('Content-Type', 'text/xml');
+                    res.send(xml(result));
                 }
             });
         });
