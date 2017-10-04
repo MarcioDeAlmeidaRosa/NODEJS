@@ -12,7 +12,14 @@ module.exports = function(app) {
             if (err) {
                 console.log(err);
             }
-            res.render('produtos/lista', { lista: result });
+            res.format({
+                html: ()=>{
+                    res.render('produtos/lista', { lista: result });
+                },
+                json: ()=> {
+                    res.json(result);
+                }
+            });
         });
         cnn.end();
     });
