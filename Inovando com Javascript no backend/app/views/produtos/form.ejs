@@ -1,5 +1,14 @@
 <html>
     <body>
+        <div>
+            <%if(erros){%>
+                <ul>
+                    <%for(let i=0 ; i< erros.length; i++){%>
+                        <li><%=erros[i].msg%></li>
+                    <%}%>
+                </ul>
+            <%}%>
+        </div>
         <form action="/produtos" method="POST">
             <div>
                 <label for="titulo">Título</label>

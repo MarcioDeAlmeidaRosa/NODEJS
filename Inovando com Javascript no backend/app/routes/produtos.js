@@ -30,7 +30,7 @@ module.exports = function(app) {
     });
 
     app.get('/produtos/form', (req, res) => {
-        res.render('produtos/form');
+        res.render('produtos/form',{livro: {}, erros: null});
     });
 
     app.get('/produtos/novo', (req, res) => {
@@ -43,14 +43,14 @@ module.exports = function(app) {
         const livro = req.body;
         console.log('livro ->', livro);
 
-        let validatorTitulo = req.assert('titulo', 'Título é obrigatório');
-        validatorTitulo.notEmpty();
+        req.assert('titulo', 'Título é obrigatório').notEmpty();
+        req.assert('preco', 'Formato do preço é inválido').isFloat();
         //
         let erros = req.validationErrors();
 
         if (erros){
             console.log(erros);
-            return res.render('produtos/form', {livro});
+            return res.render('produtos/form', {livro, erros});
         }
 
 
