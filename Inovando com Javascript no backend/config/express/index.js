@@ -1,6 +1,7 @@
 const express = require('express');
 const load = require('express-load');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator')
 
 module.exports = () => {
     const app = express();
@@ -20,7 +21,9 @@ module.exports = () => {
     app.use(bodyParser.urlencoded({ extended: true }));
     //prepara o exppress para permitir receber json
     app.use(bodyParser.json());
-
+    //carrega os validadores do express - a configuraçao da validação 
+    //tem que ser definida depois da configuração do body-parser
+    app.use(expressValidator());
     //carregando os arquivos de configuração para o express
     load('routes', { cwd: 'app' }) //defini a pasta de será carregada | para o load não ficar procurando em todos diretórios, através do cwd definimos onde esta a pasta que deve ser carregada
         .then('infra') //define após o carregamento principal, qual outra estrutura deverá ser carregada

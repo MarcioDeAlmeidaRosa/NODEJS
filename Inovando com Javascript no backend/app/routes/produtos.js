@@ -42,6 +42,18 @@ module.exports = function(app) {
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         const livro = req.body;
         console.log('livro ->', livro);
+
+        let validatorTitulo = req.assert('titulo', 'Título é obrigatório');
+        validatorTitulo.notEmpty();
+        //
+        let erros = req.validationErrors();
+
+        if (erros){
+            console.log(erros);
+            return res.render('produtos/form', {livro});
+        }
+
+
         produtoBanco.salvar(livro, (err, result) => {
             console.log('err --> ', err);
             res.redirect('/produtos');
