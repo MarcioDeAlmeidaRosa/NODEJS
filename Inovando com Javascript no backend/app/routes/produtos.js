@@ -38,7 +38,7 @@ module.exports = function(app) {
     });
 
     function render(res, livro, erros){
-        return res.render('produtos/form', {livro, erros});
+        return res.status(erros? 400 :200).render('produtos/form', {livro, erros});
     }
 
     app.post('/produtos', (req, res) => {
@@ -49,7 +49,14 @@ module.exports = function(app) {
         req.assert('preco', 'Formato do preço é inválido').isFloat();
         let erros = req.validationErrors();
         if (erros){
-            return render(res, livro, erros);
+            return res.format({
+                html:()=>{
+                    return render(res, livro, erros);
+                },
+                json: ()=>{
+                    return res.status(erros?400:200).json(erros);
+                }
+            });
         }
         produtoBanco.salvar(livro, (err, result) => {
             console.log('err --> ', err);
