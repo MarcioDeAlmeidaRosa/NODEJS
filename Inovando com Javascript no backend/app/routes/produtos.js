@@ -41,7 +41,9 @@ module.exports = function(app) {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         const livro = req.body;
+        console.log('livro ->', livro);
         produtoBanco.salvar(livro, (err, result) => {
+            console.log('err --> ', err);
             res.redirect('/produtos');
         });
         cnn.end();
