@@ -6,6 +6,7 @@
 const xml = require('xml');
 
 module.exports = function(app) {
+
     app.get('/produtos', (req, res) => {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
@@ -14,13 +15,13 @@ module.exports = function(app) {
                 console.log(err);
             }
             res.format({
-                html: ()=>{
+                html: () => {
                     res.render('produtos/lista', { lista: result });
                 },
-                json: ()=> {
+                json: () => {
                     res.json(result);
                 },
-                xml: ()=>{
+                xml: () => {
                     res.set('Content-Type', 'text/xml');
                     res.send(xml(result));
                 }
@@ -37,8 +38,8 @@ module.exports = function(app) {
         res.redirect('/produtos/form');
     });
 
-    function render(res, livro, erros){
-        return res.status(erros? 400 :200).render('produtos/form', {livro, erros});
+    function render(res, livro, erros) {
+        return res.status(erros ? 400 : 200).render('produtos/form', { livro, erros });
     }
 
     app.post('/produtos', (req, res) => {
@@ -48,13 +49,13 @@ module.exports = function(app) {
         req.assert('titulo', 'Título é obrigatório').notEmpty();
         req.assert('preco', 'Formato do preço é inválido').isFloat();
         let erros = req.validationErrors();
-        if (erros){
+        if (erros) {
             return res.format({
-                html:()=>{
+                html: () => {
                     return render(res, livro, erros);
                 },
-                json: ()=>{
-                    return res.status(erros?400:200).json(erros);
+                json: () => {
+                    return res.status(erros ? 400 : 200).json(erros);
                 }
             });
         }
@@ -77,4 +78,5 @@ module.exports = function(app) {
         });
         cnn.end();
     });
+
 }
