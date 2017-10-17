@@ -5,7 +5,7 @@ const app = require('../config/express')();
 const request = require('supertest')(app);
 
 describe('#ProdutosController', function() {
-    it('Listagem json', function(done) {
+    it('#Listagem (json)', function(done) {
         console.log('Teste de verificação de listagem de json');
         // let conf = {
         //     hostname: 'localhost',
@@ -32,6 +32,25 @@ describe('#ProdutosController', function() {
             .set('Accept', 'application/json')
             .expect('content-type', /json/)
             .expect(200, done);
+    });
+
+    it('#Listagem (html)', function(done) {
+        request.get('/produtos')
+            .set('Accept', 'text/html')
+            .expect('content-type', /html/)
+            .expect(200, done);
+    });
+
+    it('#Novo produto (cadastro inválido)', function(done) {
+        request.post('/produtos')
+            .send({ titulo: '', descricao: 'Livro 1' })
+            .expect(400, done);
+    });
+
+    it('#Novo produto (cadastro válido)', function(done) {
+        request.post('/produtos')
+            .send({ titulo: 'Livro node', descricao: 'Livro 1', preco: 20.50 })
+            .expect(302, done);
     });
 
 });
