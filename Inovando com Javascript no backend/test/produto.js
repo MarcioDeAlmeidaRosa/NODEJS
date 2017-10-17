@@ -1,4 +1,5 @@
 const http = require('http');
+const assert = require('assert');
 
 describe('#ProdutosController', function() {
     it('Listagem json', function(done) {
@@ -13,14 +14,13 @@ describe('#ProdutosController', function() {
         };
 
         http.get(conf, (res) => {
-            // res.on('data', (body) => {
-            //     console.log(body + '');
-            // });
-            if (res.statusCode == 200)
-                console.log('Status OK');
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.headers['content-type'], 'application/json; charset=utf-8');
+            // if (res.statusCode == 200)
+            //     console.log('Status OK');
 
-            if (res.headers['content-type'] == 'application/json; charset=utf-8')
-                console.log('content-type OK');
+            // if (res.headers['content-type'] == 'application/json; charset=utf-8')
+            //     console.log('content-type OK');
 
             done();
         });
