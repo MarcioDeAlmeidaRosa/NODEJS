@@ -7,12 +7,13 @@ const xml = require('xml');
 
 module.exports = function(app) {
 
-    app.get('/produtos', (req, res) => {
+    app.get('/produtos', (req, res, next) => {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
         produtoBanco.lista((err, result) => {
             if (err) {
                 console.log(err);
+                return next(err);
             }
             res.format({
                 html: () => {
