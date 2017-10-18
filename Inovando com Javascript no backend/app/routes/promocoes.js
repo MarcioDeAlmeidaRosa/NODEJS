@@ -26,6 +26,7 @@ module.exports = function(app) {
     app.post('/promocoes', (req, res) => {
         let promocao = req.body;
         console.log('promocao --> ', promocao);
+        //Perceba que utilizamos a boa prática conhecida como Always Redirect After 
         res.redirect('promocoes/form');
     });
 }
