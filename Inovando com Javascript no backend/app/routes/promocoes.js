@@ -27,6 +27,7 @@ module.exports = function(app) {
         let promocao = req.body;
         console.log('promocao --> ', promocao);
         //Perceba que utilizamos a boa prática conhecida como Always Redirect After 
+        app.get('io').emit('novaPromocao', promocao);
         res.redirect('promocoes/form');
     });
 }
