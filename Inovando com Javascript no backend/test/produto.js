@@ -5,6 +5,28 @@ const app = require('../config/express')();
 const request = require('supertest')(app);
 
 describe('#ProdutosController', function() {
+    //lib para limpar mais de uma tabela (https://github.com/emerleite/node-database-cleaner)
+    limpaTabelas = function(cb) {
+        var cnn = app.infra.connectionFactory();
+        cnn.query('delete from livros', cb);
+    }
+
+    beforeEach(function(done) {
+        limpaTabelas(function(err, result) {
+            if (!err) {
+                done();
+            }
+        });
+    });
+
+    afterEach(function(done) {
+        limpaTabelas(function(err, result) {
+            if (!err) {
+                done();
+            }
+        });
+    })
+
     it('#Listagem (json)', function(done) {
         console.log('Teste de verificação de listagem de json');
         // let conf = {
