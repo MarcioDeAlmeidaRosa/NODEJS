@@ -9,8 +9,10 @@ module.exports = () => {
     ///e é compartilhado por toda a aplicação
     app.set('view engine', 'ejs')
 
-    //midle do express que configura uma pasta statica, sendo asssim
+    //middle do express que configura uma pasta statica, sendo asssim
     //não é necessário definir rota para conseguir acessar os arquivos
+    //esses são arquivos estáticos e podem ser acessados diretamente em 
+    //sua url literal, sem precisar de uma rota configurada.
     app.use(express.static('./app/public'));
 
     //como mudamos a localização da pasta views da 
