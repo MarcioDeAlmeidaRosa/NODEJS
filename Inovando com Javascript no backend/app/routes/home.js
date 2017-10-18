@@ -2,10 +2,9 @@ module.exports = function(app) {
     app.get('/', (req, res) => {
         const cnn = app.infra.connectionFactory();
         const produtoBanco = new app.infra.ProdutosBancoDAO(cnn);
-        produtoBanco.lista((err, result, next) => {
+        produtoBanco.lista((err, result) => {
             if (err) {
                 console.log(err);
-                return next(err);
             }
             res.format({
                 html: () => {

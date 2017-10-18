@@ -31,10 +31,27 @@ module.exports = () => {
     //carrega os validadores do express - a configuraçao da validação 
     //tem que ser definida depois da configuração do body-parser
     app.use(expressValidator());
+
     //carregando os arquivos de configuração para o express
     load('routes', { cwd: 'app' }) //defini a pasta de será carregada | para o load não ficar procurando em todos diretórios, através do cwd definimos onde esta a pasta que deve ser carregada
         .then('infra') //define após o carregamento principal, qual outra estrutura deverá ser carregada
         .into(app); //determina onde deverá ser carregado o conteúdo carregado pelo load
+
+    //Criando um Middleware para intercepitar rotas que não estão configuradas
+    app.use(function(req, res, next) {
+        res.status(404).render('erros/404');
+        next();
+    });
+
+    //Criando um Middleware para ser execuutando quando der algum erro na execução da API
+    app.use(function(error, req, res, next) {
+        if (process.env.NODE_ENV == 'production') {
+            res.status(500).render('erros/500');
+            return;
+        }
+        next(error);
+    });
+
 
     return app;
 }

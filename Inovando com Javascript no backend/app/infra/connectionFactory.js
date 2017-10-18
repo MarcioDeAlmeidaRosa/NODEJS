@@ -7,7 +7,7 @@ function createDBConnection() {
             host: 'localhost',
             user: 'root',
             password: 'sasa',
-            database: 'casadocodigo_nodejs'
+            database: 'casadocodigo_nodejs2'
         });
     }
 
