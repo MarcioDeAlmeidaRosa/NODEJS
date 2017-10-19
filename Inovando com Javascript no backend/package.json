@@ -16,8 +16,7 @@
         "express-validator": "^4.2.1",
         "mysql": "^2.14.1",
         "socket.io": "^2.0.3",
-        "xml": "^1.0.1",
-        "install": "^0.8.9"
+        "xml": "^1.0.1"
     },
     "devDependencies": {
         "mocha": "^4.0.1",
